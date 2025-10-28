@@ -1,9 +1,10 @@
 [tasks.assemble-prod]
-description = "assemble for production"
+description = "assemble for production build"
 run = "nasm -f elf64 -Werror laemon.asm -o laemon.o"
 hide = true
 
 [tasks.link-prod]
+description = "link for production build"
 run = "ld.lld laemon.o -o laemon --fatal-warnings --gc-sections --no-undefined --static --strip-all -z now"
 hide = true
 
@@ -12,11 +13,12 @@ description = "build for production"
 run = ["mise run assemble-prod", "mise run link-prod"]
 
 [tasks.assemble-debug]
-description = "assemble with debug info"
+description = "assemble for debug build"
 run = "nasm -f elf64 -g laemon.asm -o laemon.o"
 hide = true
 
 [tasks.link-debug]
+description = "link for debug build"
 run = "ld.lld laemon.o --static -o laemon"
 hide = true
 
