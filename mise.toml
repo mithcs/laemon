@@ -1,0 +1,25 @@
+[tasks.assemble-prod]
+description = "assemble for production"
+run = "nasm -f elf64 -Werror laemon.asm -o laemon.o"
+hide = true
+
+[tasks.link-prod]
+run = "ld.lld laemon.o -o laemon --fatal-warnings --gc-sections --no-undefined --static --strip-all -z now"
+hide = true
+
+[tasks.build]
+description = "build for production"
+run = ["mise run assemble-prod", "mise run link-prod"]
+
+[tasks.assemble-debug]
+description = "assemble with debug info"
+run = "nasm -f elf64 -g laemon.asm -o laemon.o"
+hide = true
+
+[tasks.link-debug]
+run = "ld.lld laemon.o --static -o laemon"
+hide = true
+
+[tasks.b]
+description = "build with debug info"
+run = ["mise run assemble-debug", "mise run link-debug"]
